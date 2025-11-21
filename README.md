@@ -15,10 +15,11 @@ MySQL
 ```
 📌 Funciones
 
+```
 Registrar animales (con foto)
 
 Ver lista de animales
-```
+
 Editar datos
 
 Eliminar registros
@@ -43,6 +44,7 @@ SQL
 ▶️ Cómo iniciar
 ```
 npm install
+```
 nodemon server.js
 ```
 
