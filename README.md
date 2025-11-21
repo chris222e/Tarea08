@@ -23,6 +23,9 @@ Editar datos
 
 Eliminar registros
 ```
+
+```
+SQL
 🗄️ Base de Datos
 CREATE TABLE animal (
   id_animal INT AUTO_INCREMENT PRIMARY KEY,
@@ -33,6 +36,9 @@ CREATE TABLE animal (
   fecha_rescate DATE,
   fotografia VARCHAR(255)
 );
+```
+SQL
+
 ```
 ▶️ Cómo iniciar
 ```
