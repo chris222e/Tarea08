@@ -1,0 +1,156 @@
+/* estilos.css - Landing page veterinaria suave */
+
+/* Fondo principal suave */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #f5f5f5; /* fondo neutro y limpio */
+  color: #333; /* texto oscuro para buena legibilidad */
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Hero section */
+.hero {
+  position: relative; /* necesario para el fondo de emojis */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  background: #e0f7fa; /* azul pastel calmante */
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Fondo animado de emojis */
+.emoji-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.emoji-background span {
+  position: absolute;
+  font-size: 2rem;
+  animation: floatEmoji linear infinite;
+  opacity: 0.6;
+}
+
+/* Título principal */
+.hero h1 {
+  font-size: 3.2rem;
+  font-weight: 700;
+  color: #00796b; /* verde oscuro suave */
+  margin-bottom: 1rem;
+  opacity: 0;
+  transform: translateY(-30px);
+  animation: slideDown 1s forwards;
+  animation-delay: 0.2s;
+  z-index: 2;
+}
+
+/* Subtítulo */
+.hero p {
+  font-size: 1.2rem;
+  color: #004d40; /* verde más profundo */
+  margin-bottom: 2rem;
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: slideDown 1s forwards;
+  animation-delay: 0.5s;
+  z-index: 2;
+}
+
+/* Botones suaves y elegantes (sin animación de aparición) */
+.btn-custom {
+  width: 200px;
+  margin: 0.5rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+  border-radius: 30px;
+  padding: 0.7rem 1.5rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 2;
+  opacity: 1; /* siempre visibles */
+}
+
+/* Botón Ver Mascotas */
+.btn-primary {
+  background-color: #4db6ac; /* verde menta suave */
+  color: #fff;
+}
+.btn-primary:hover {
+  background-color: #26a69a;
+  transform: translateY(-3px);
+}
+
+/* Botón Registrar Mascotas */
+.btn-success {
+  background-color: #80cbc4; /* verde agua */
+  color: #004d40;
+}
+.btn-success:hover {
+  background-color: #4db6ac;
+  transform: translateY(-3px);
+}
+
+/* Tarjetas flotantes estilo glassmorphism suave */
+.card-custom {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 15px;
+  padding: 2rem;
+  margin: 1rem;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-custom:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+/* Footer */
+footer {
+  margin-top: 2rem;
+  text-align: center;
+  padding: 1.5rem 0;
+  background: #b2dfdb; /* verde muy suave */
+  color: #004d40;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+/* --- ANIMACIONES --- */
+
+/* Entrada de título y subtítulo */
+@keyframes slideDown {
+  0% { opacity: 0; transform: translateY(-30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Animación de los emojis de fondo */
+@keyframes floatEmoji {
+  0% {
+    transform: translateY(-50px) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% { opacity: 1; }
+  50% {
+    transform: translateY(50vh) translateX(20px) rotate(180deg);
+  }
+  100% {
+    transform: translateY(100vh) translateX(-30px) rotate(360deg);
+    opacity: 0;
+  }
+}

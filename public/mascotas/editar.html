@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Editar Mascota</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    img#preview {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body class="container py-4">
+  <h1 class="mb-4">Editar Mascota</h1>
+  <a href="gestionar.html" class="btn btn-secondary mb-4">Volver</a>
+
+  <form id="form-editar" enctype="multipart/form-data">
+    <div class="mb-3">
+      <label for="nombre" class="form-label">Nombre</label>
+      <input type="text" class="form-control" id="nombre" name="nombre" required />
+    </div>
+
+    <div class="mb-3">
+      <label for="especie" class="form-label">Especie</label>
+      <select class="form-select" id="especie" name="especie" required>
+        <option value="">Seleccione...</option>
+        <option value="Perro">Perro</option>
+        <option value="Gato">Gato</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="raza" class="form-label">Raza</label>
+      <input type="text" class="form-control" id="raza" name="raza" />
+    </div>
+
+    <div class="mb-3">
+      <label for="sexo" class="form-label">Sexo</label>
+      <select class="form-select" id="sexo" name="sexo">
+        <option value="">Seleccione...</option>
+        <option value="Macho">Macho</option>
+        <option value="Hembra">Hembra</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="fecha_rescate" class="form-label">Fecha de Rescate</label>
+      <input type="date" class="form-control" id="fecha_rescate" name="fecha_rescate" required />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Fotografía actual</label><br />
+      <img id="preview" src="" alt="Foto mascota" />
+      <input
+        type="file"
+        class="form-control mt-2"
+        id="fotografia"
+        name="fotografia"
+        accept="image/*"
+      />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+  </form>
+
+  <script>
+    // Obtener el ID de la URL
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+
+    const form = document.getElementById('form-editar');
+    const preview = document.getElementById('preview');
+
+    // Función para convertir la fecha al formato YYYY-MM-DD
+    function formatearFecha(fecha) {
+      if (!fecha) return '';
+      return fecha.split('T')[0]; // elimina la hora si existe
+    }
+
+    // Cargar datos de la mascota
+    async function cargarDatos() {
+      try {
+        const res = await fetch(`/animales`);
+        const mascotas = await res.json();
+        const m = mascotas.find((a) => a.id_animal == id);
+
+        if (!m) {
+          alert('Mascota no encontrada');
+          window.location.href = 'gestionar.html';
+          return;
+        }
+
+        document.getElementById('nombre').value = m.nombre;
+        document.getElementById('especie').value = m.especie;
+        document.getElementById('raza').value = m.raza || '';
+        document.getElementById('sexo').value = m.sexo || '';
+        document.getElementById('fecha_rescate').value = formatearFecha(m.fecha_rescate);
+        preview.src = m.fotografia ? m.fotografia : '/uploads/default.png';
+      } catch (error) {
+        console.error('Error al cargar datos:', error);
+      }
+    }
+
+    cargarDatos();
+
+    // Enviar formulario para actualizar
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+
+      try {
+        const res = await fetch(`/animales/${id}`, {
+          method: 'PUT',
+          body: formData,
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          alert(data.message);
+          window.location.href = 'gestionar.html';
+        } else {
+          alert('Error al actualizar mascota: ' + data.message);
+        }
+      } catch (error) {
+        console.error('Error al actualizar mascota:', error);
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hogar RA - Inicio</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- CSS externo -->
+  <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+
+  <section class="hero">
+    <!-- Contenedor para los emojis de fondo -->
+    <div class="emoji-background"></div>
+
+    <h1>Hogar Rescate Animal " PatitasWeb "</h1>
+    <p>¡Dale a cada mascota un hogar lleno de amor! 🐶🐱</p>
+    <div class="d-flex flex-column flex-sm-row justify-content-center">
+      <a href="mascotas/listar.html" class="btn btn-primary btn-lg btn-custom">Ver mascotas</a>
+      <a href="admin.html" class="btn btn-success btn-lg btn-custom">Usuario Admin</a>
+    </div>
+  </section>
+
+  <!-- Ejemplo de tarjetas flotantes (opcional) -->
+  <section class="d-flex flex-wrap justify-content-center mt-5">
+    <div class="card-custom col-10 col-sm-5 col-md-3">
+      <h3>Adopta</h3>
+      <p>Encuentra la mascota perfecta para ti y dale un nuevo hogar.</p>
+    </div>
+    <div class="card-custom col-10 col-sm-5 col-md-3">
+      <h3>Apoya</h3>
+      <p>Colabora con nuestro refugio mediante donaciones o voluntariado.</p>
+    </div>
+    <div class="card-custom col-10 col-sm-5 col-md-3">
+      <h3>Comparte</h3>
+      <p>Ayuda a nuestras mascotas compartiendo sus historias y fotos.</p>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Veterinaria HOGAR RA | Todos los derechos reservados.
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- JavaScript para los emojis animados -->
+  <script>
+    const hero = document.querySelector('.emoji-background');
+    const emojis = ['🐶','🐱','🐾','🐕','🐈'];
+
+    for(let i = 0; i < 25; i++) {
+      const span = document.createElement('span');
+      span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      span.style.left = Math.random() * 100 + 'vw';  // posición horizontal aleatoria
+      span.style.animationDuration = (5 + Math.random() * 10) + 's'; // velocidad aleatoria
+      span.style.fontSize = (20 + Math.random() * 30) + 'px'; // tamaño aleatorio
+      hero.appendChild(span);
+    }
+  </script>
+
+</body>
+</html>

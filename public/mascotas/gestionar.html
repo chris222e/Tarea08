@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestionar Mascotas</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .mascota-card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+    .mascota-card {
+      margin-bottom: 20px;
+    }
+    .btn-group-card {
+      display: flex;
+      justify-content: center;
+      gap: 5px;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body class="container py-4">
+
+  <h1 class="mb-4">Gestionar Mascotas</h1>
+  <a href="../paneladmin.html" class="btn btn-secondary mb-4">Volver</a>
+
+  <div class="row" id="galeria-mascotas">
+    <!-- Aquí se insertarán las mascotas -->
+  </div>
+
+  <script>
+    async function cargarMascotas() {
+      try {
+        const response = await fetch('/animales');
+        const mascotas = await response.json();
+
+        const galeria = document.getElementById('galeria-mascotas');
+        galeria.innerHTML = '';
+
+        mascotas.forEach(m => {
+          galeria.innerHTML += `
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+              <div class="card mascota-card">
+                <img src="${m.fotografia ? m.fotografia : '/uploads/default.png'}" class="card-img-top" alt="${m.nombre}">
+                <div class="card-body text-center p-2">
+                  <h6 class="card-title mb-2">${m.nombre}</h6>
+                  <div class="btn-group-card">
+                    <button class="btn btn-sm btn-primary" onclick="editarMascota(${m.id_animal})">Editar</button>
+                    <button class="btn btn-sm btn-danger" onclick="eliminarMascota(${m.id_animal})">Eliminar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+      } catch (error) {
+        console.error('Error al cargar mascotas:', error);
+      }
+    }
+
+    async function eliminarMascota(id) {
+      if (!confirm('¿Seguro que deseas eliminar esta mascota?')) return;
+
+      try {
+        const res = await fetch(`/animales/${id}`, { method: 'DELETE' });
+        const data = await res.json();
+
+        if (res.ok) {
+          alert(data.message);
+          cargarMascotas(); // recargar la galería
+        } else {
+          alert('Error al eliminar mascota: ' + data.message);
+        }
+      } catch (error) {
+        console.error('Error al eliminar mascota:', error);
+      }
+    }
+
+    function editarMascota(id) {
+      // Aquí puedes redirigir a un formulario de edición, por ejemplo:
+      window.location.href = `editar.html?id=${id}`;
+    }
+
+    cargarMascotas();
+  </script>
+
+</body>
+</html>
